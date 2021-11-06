@@ -58,6 +58,9 @@ create table if not exists salaries
 -- 1. List the following details of each employee: employee number, last name, first name, sex, and salary.
 
 -- 2. List first name, last name, and hire date for employees who were hired in 1986.
+select first_name, last_name, hire_date
+from employees
+where hire_date between '1986-01-01' and '1986-12-31';
 
 -- 3. List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name.
 
@@ -71,7 +74,25 @@ and last_name like 'B%';
 -- and last_name like '_a%'; -- ignores first character
 
 -- 6. List all employees in the Sales department, including their employee number, last name, first name, and department name.
+select employees.emp_no, last_name, first_name, dept_name
+from employees
+inner join department_employees 
+on employees.emp_no = department_employees.emp_no
+inner join departments
+on departments.dept_no = department_employees.dept_no
+where departments.dept_name = 'Sales';
 
 -- 7. List all employees in the Sales and Development departments, including their employee number, last name, first name, and department name.
+--select * from departments;
+--select * from department_employees;
+--select * from employees;
+
+select employees.emp_no, last_name, first_name, dept_name
+from employees
+inner join department_employees 
+on employees.emp_no = department_employees.emp_no
+inner join departments
+on departments.dept_no = department_employees.dept_no
+where departments.dept_no in ('d007', 'd005');
 
 -- 8. In descending order, list the frequency count of employee last names, i.e., how many employees share each last name.
